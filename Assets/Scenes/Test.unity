@@ -2452,6 +2452,7 @@ GameObject:
   - component: {fileID: 1630348878}
   - component: {fileID: 1630348875}
   - component: {fileID: 1630348879}
+  - component: {fileID: 1630348881}
   - component: {fileID: 1630348880}
   m_Layer: 0
   m_Name: Player
@@ -2538,6 +2539,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a8e498f0749d84da84d5c92a9b6618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dungeon.PlayerMovement
+  rb: {fileID: 1630348879}
+  moveSpeed: 300
+--- !u!114 &1630348881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630348874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92b665f596be01468c7f563ec5d6c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeon.Character.PlayerInput
+  playerMovement: {fileID: 1630348880}
+  inputReader: {fileID: 11400000, guid: 13135f9a6c04e09499210fbd92dc6be2, type: 2}
 --- !u!1001 &1667982848
 PrefabInstance:
   m_ObjectHideFlags: 0
