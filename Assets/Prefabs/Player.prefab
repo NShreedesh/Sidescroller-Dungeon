@@ -240,9 +240,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dungeon.PlayerMovement
   rb: {fileID: 6792190369657216481}
+  anim: {fileID: 8522439598039040066}
   moveSpeed: 300
   accelarationSpeed: 200
-  deccelarationSpeed: 500
+  deccelarationSpeed: 300
 --- !u!1 &1568900686508005447
 GameObject:
   m_ObjectHideFlags: 0
