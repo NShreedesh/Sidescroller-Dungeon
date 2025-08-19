@@ -7,6 +7,8 @@ namespace Dungeon.Character
         [Header("Componentes")]
         [SerializeField]
         private Rigidbody rb;
+        [SerializeField]
+        private Animator anim;
 
         [Header("Data")]
         [SerializeField]
@@ -25,6 +27,7 @@ namespace Dungeon.Character
             float deltaValue = Mathf.Sign(_curentMoveSpeed) != Mathf.Sign(_moveInput) ? deccelarationSpeed : accelarationSpeed;
             if(_moveInput == 0) deltaValue = deccelarationSpeed;
             _curentMoveSpeed = Mathf.MoveTowards(_curentMoveSpeed, _moveInput * moveSpeed, deltaValue * Time.deltaTime);
+            anim.SetFloat("LocomotionX", _curentMoveSpeed / (moveSpeed));
         }
 
         private void FixedUpdate()
@@ -37,7 +40,7 @@ namespace Dungeon.Character
             Vector3 velocity = rb.linearVelocity;
             float xMovement = _curentMoveSpeed * Time.fixedDeltaTime;
             velocity.x = xMovement;
-            rb.linearVelocity = velocity;   
+            rb.linearVelocity = velocity;
         }
 
         public void SetMoveInput(float moveInput) => _moveInput = moveInput;
