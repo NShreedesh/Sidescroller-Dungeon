@@ -16,6 +16,7 @@ namespace Dungeon.Character
         private void OnEnable()
         {
             inputReader.MoveEvent += OnMoveInput;
+            inputReader.JumpStartedEvent += OnJumpStartedInput;
         }
 
         private void OnMoveInput(float moveInput)
@@ -23,9 +24,15 @@ namespace Dungeon.Character
             playerMovement.SetMoveInput(moveInput);
         }
 
+        private void OnJumpStartedInput()
+        {
+            playerMovement.Jump();
+        }
+
         private void OnDisable()
         {
             inputReader.MoveEvent -= OnMoveInput;
+            inputReader.JumpStartedEvent -= OnJumpStartedInput;
         }
     }
 }

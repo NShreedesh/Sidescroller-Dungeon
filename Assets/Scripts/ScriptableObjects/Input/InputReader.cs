@@ -1,6 +1,7 @@
 using Game.Input;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static Game.Input.GameInput;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -14,6 +15,7 @@ namespace ScriptableObjects.Input
 
         [field: Header("Gameplay Input Actions")]
         public event Action<float> MoveEvent;
+        public event Action JumpStartedEvent;
 
         private void OnEnable()
         {
@@ -47,6 +49,12 @@ namespace ScriptableObjects.Input
         public void OnMove(CallbackContext context)
         {
             MoveEvent?.Invoke(context.ReadValue<float>());
+        }
+
+        public void OnJump(CallbackContext context)
+        {
+            if(context.phase ==InputActionPhase.Started)
+                JumpStartedEvent?.Invoke();
         }
     }
 }
