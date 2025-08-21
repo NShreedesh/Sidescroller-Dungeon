@@ -35,6 +35,10 @@ namespace Dungeon.Character
         private bool _isGrounded;
         private bool _isJumping;
 
+        [Header("Crouch Data")]
+        private bool _isCrouching;
+        private bool _isStanding;
+
         [Header("Inputs")]
         private string _currentAnimation = "Locomotion";
 
@@ -75,7 +79,7 @@ namespace Dungeon.Character
             if (!_currentAnimation.Equals("Jump Up"))
             {
                 _currentAnimation = "Jump Up";
-                anim.CrossFadeInFixedTime("Jump Up", .1f, 0);
+                anim.CrossFadeInFixedTime("Jump Up", 0.05f, 0);
             }
             Invoke(nameof(DelayJump), jumpStartTime);
 
@@ -89,11 +93,44 @@ namespace Dungeon.Character
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
+        public void Crouch()
+        {
+            if (!_isGrounded)
+                return;
+
+            if (!_currentAnimation.Equals("Crouch") && !_isCrouching)
+            {
+                _isCrouching = true;
+                _currentAnimation = "Crouch";
+                anim.CrossFadeInFixedTime("Crouch", .1f);
+            }
+        }
+
+        public void CrouchStand()
+        {
+            if (!_isGrounded)
+                return;
+
+            if (!_currentAnimation.Equals("CrouchStand") && _isCrouching)
+            {
+                _isCrouching = false;
+                _isStanding = true;
+                _currentAnimation = "CrouchStand";
+                anim.CrossFadeInFixedTime("CrouchStand", .1f);
+                Invoke(nameof(DelayStanding), 1f);
+            }
+        }
+
+        private void DelayStanding()
+        {
+            _isStanding = false;
+        }
+
         private void Animate()
         {
-            if(_isGrounded)
+            if (_isGrounded)
             {
-                if (!_currentAnimation.Equals("Locomotion") && !_isJumping)
+                if (!_currentAnimation.Equals("Locomotion") && !_isJumping && !_isCrouching && !_isStanding)
                 {
                     _currentAnimation = "Locomotion";
                     anim.CrossFadeInFixedTime("Locomotion", .1f);

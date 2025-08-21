@@ -111,6 +111,15 @@ namespace Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""2df33de0-cb61-471e-86a5-3088536b29b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -155,6 +164,17 @@ namespace Game.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe3bdee9-cddd-4e19-97e4-2aef9b4755ec"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -228,6 +248,7 @@ namespace Game.Input
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
             m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
             m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+            m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
         }
 
         ~@GameInput()
@@ -310,6 +331,7 @@ namespace Game.Input
         private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
         private readonly InputAction m_Gameplay_Move;
         private readonly InputAction m_Gameplay_Jump;
+        private readonly InputAction m_Gameplay_Crouch;
         /// <summary>
         /// Provides access to input actions defined in input action map "Gameplay".
         /// </summary>
@@ -329,6 +351,10 @@ namespace Game.Input
             /// Provides access to the underlying input action "Gameplay/Jump".
             /// </summary>
             public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/Crouch".
+            /// </summary>
+            public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -361,6 +387,9 @@ namespace Game.Input
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
 
             /// <summary>
@@ -378,6 +407,9 @@ namespace Game.Input
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @Crouch.started -= instance.OnCrouch;
+                @Crouch.performed -= instance.OnCrouch;
+                @Crouch.canceled -= instance.OnCrouch;
             }
 
             /// <summary>
@@ -497,6 +529,13 @@ namespace Game.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnJump(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Crouch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnCrouch(InputAction.CallbackContext context);
         }
     }
 }

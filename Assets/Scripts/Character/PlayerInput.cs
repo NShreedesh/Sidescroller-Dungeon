@@ -17,6 +17,8 @@ namespace Dungeon.Character
         {
             inputReader.MoveEvent += OnMoveInput;
             inputReader.JumpStartedEvent += OnJumpStartedInput;
+            inputReader.CrouchStartedEvent += OnCrouchStartedInput;
+            inputReader.CrouchCanceledEvent += OnCrouchCanceledInput;
         }
 
         private void OnMoveInput(float moveInput)
@@ -29,10 +31,22 @@ namespace Dungeon.Character
             playerMovement.Jump();
         }
 
+        private void OnCrouchStartedInput()
+        {
+            playerMovement.Crouch();
+        }
+
+        private void OnCrouchCanceledInput()
+        {
+            playerMovement.CrouchStand();
+        }
+
         private void OnDisable()
         {
             inputReader.MoveEvent -= OnMoveInput;
             inputReader.JumpStartedEvent -= OnJumpStartedInput;
+            inputReader.CrouchStartedEvent -= OnCrouchStartedInput;
+            inputReader.CrouchCanceledEvent -= OnCrouchCanceledInput;
         }
     }
 }

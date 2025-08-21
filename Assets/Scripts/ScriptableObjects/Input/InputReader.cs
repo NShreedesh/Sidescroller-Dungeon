@@ -16,6 +16,8 @@ namespace ScriptableObjects.Input
         [field: Header("Gameplay Input Actions")]
         public event Action<float> MoveEvent;
         public event Action JumpStartedEvent;
+        public event Action CrouchStartedEvent;
+        public event Action CrouchCanceledEvent;
 
         private void OnEnable()
         {
@@ -55,6 +57,14 @@ namespace ScriptableObjects.Input
         {
             if(context.phase ==InputActionPhase.Started)
                 JumpStartedEvent?.Invoke();
+        }
+
+        public void OnCrouch(CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                CrouchStartedEvent?.Invoke();
+            else if (context.phase == InputActionPhase.Canceled)
+                CrouchCanceledEvent?.Invoke();
         }
     }
 }
